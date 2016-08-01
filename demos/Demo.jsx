@@ -1,8 +1,9 @@
 import React from 'react';
 import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router';
 
-import Lorem from './Lorem';
+import {FadeLorem, PopLorem, SlideLeftLorem, Lorem, SlideRighLorem} from './Lorem';
 import RouteTransitionDemo from './RouteTransitionDemo';
+import { RouteTransition } from '../src/index';
 
 import { presets } from '../src/index';
 
@@ -30,55 +31,32 @@ const App = React.createClass({
             </Link>
           );
         })}
-        {this.props.children}
+        <RouteTransition>
+          {this.props.children}
+        </RouteTransition>
       </div>
     );
   }
 });
 
-
-const FadeDemo = props => (
-  <RouteTransitionDemo preset={presets.fade} {...props} />
-);
-
-const PopDemo = props => (
-  <RouteTransitionDemo preset={presets.pop} {...props} />
-);
-
-const SlideLeftDemo = props => (
-  <RouteTransitionDemo preset={presets.slideLeft} {...props} />
-);
-
 const SlideRightDemo = props => (
-  <RouteTransitionDemo preset={presets.slideRight} {...props} />
+  <RouteTransitionDemo {...props} />
 );
 
 const Demo = () => (
   <Router history={hashHistory}>
     <Route path="/" component={App}>
-      <Route path="fade" component={FadeDemo}>
-        <IndexRoute component={Lorem} />
-        <Route path="demo-1" component={Lorem} />
-        <Route path="demo-2" component={Lorem} />
-        <Route path="demo-3" component={Lorem} />
-      </Route>
-      <Route path="pop" component={PopDemo}>
-        <IndexRoute component={Lorem} />
-        <Route path="demo-1" component={Lorem} />
-        <Route path="demo-2" component={Lorem} />
-        <Route path="demo-3" component={Lorem} />
-      </Route>
-      <Route path="slideLeft" component={SlideLeftDemo}>
-        <IndexRoute component={Lorem} />
-        <Route path="demo-1" component={Lorem} />
-        <Route path="demo-2" component={Lorem} />
-        <Route path="demo-3" component={Lorem} />
-      </Route>
+      <Route
+        path="fade"
+        component={FadeLorem}
+      />
+      <Route path="pop" component={PopLorem}/>
+      <Route path="slideLeft" component={SlideLeftLorem}/>
       <Route path="slideRight" component={SlideRightDemo}>
-        <IndexRoute component={Lorem} />
-        <Route path="demo-1" component={Lorem} />
-        <Route path="demo-2" component={Lorem} />
-        <Route path="demo-3" component={Lorem} />
+        <IndexRoute component={SlideRighLorem} />
+        <Route path="demo-1" component={SlideRighLorem} />
+        <Route path="demo-2" component={SlideRighLorem} />
+        <Route path="demo-3" component={SlideRighLorem} />
       </Route>
     </Route>
   </Router>

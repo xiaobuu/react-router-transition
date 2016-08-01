@@ -1,33 +1,47 @@
-import React, { PropTypes, cloneElement, createElement } from 'react';
+import React, { Component, PropTypes, cloneElement, createElement } from 'react';
 import { TransitionMotion } from 'react-motion';
 
 import ensureSpring from './ensureSpring';
+import extractSceneConfig from './extractSceneConfig';
 
-const RouteTransition = React.createClass({
-  propTypes: {
+/*
+  Route Transition should be the root in the route tree
+ */
+class RouteTransition extends Component {
+  static propTypes = {
     className: PropTypes.string,
     component: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.bool
     ]),
-    pathname: PropTypes.string.isRequired,
-    atEnter: PropTypes.object.isRequired,
-    atActive: PropTypes.object.isRequired,
-    atLeave: PropTypes.object.isRequired,
-    mapStyles: PropTypes.func,
+    // pathname: PropTypes.string.isRequired,
+    // atEnter: PropTypes.object.isRequired,
+    // atActive: PropTypes.object.isRequired,
+    // atLeave: PropTypes.object.isRequired,
+    // mapStyles: PropTypes.func,
     runOnMount: PropTypes.bool,
+    mobileLike: PropTypes.bool,
     style: PropTypes.object
-  },
+  };
 
-  getDefaultProps() {
-    return {
-      component: 'div',
-      runOnMount: true,
-      mapStyles: val => val
-    };
-  },
+  static defaultProps = {
+    component: 'div',
+    runOnMount: false,
+    mobileLike: false,
+  };
 
-  getDefaultStyles() {
+  _sceneConfig = {};
+
+  componentWillMount() {
+    this._sceneConfig = extractSceneConfig(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    setTimeout(() => this._needResetLeave = true, 300);
+    this._sceneConfig = extractSceneConfig(nextProps.children);
+  }
+
+  getDefaultStyles = () => {
     if (!this.props.runOnMount) {
       return null;
     }
@@ -37,53 +51,64 @@ const RouteTransition = React.createClass({
     }
 
     return [{
-      key: this.props.pathname,
+      key: this.props.children.props.location.pathname, // props is injected by react-router
       data: this.props.children,
-      style: this.props.atEnter
+      style: this._sceneConfig.atEnter,
     }];
-  },
+  };
 
   // there's only ever one route mounted at a time,
   // so just return the current match
-  getStyles() {
+  getStyles = () => {
     if (!this.props.children) {
       return [];
     }
-
-    // TODO: maybe access route path from children for pathname?
+    console.log('key', this.props.children.props.location.pathname);
     return [{
-      key: this.props.pathname,
+      key: this.props.children.props.location.pathname, // props is injected by react-router
       data: this.props.children,
-      style: ensureSpring(this.props.atActive)
+      style: ensureSpring(this._sceneConfig.atActive)
     }];
-  },
+  }
 
-  willEnter() {
-    return this.props.atEnter;
-  },
+  willEnter = () => {
+    if (this.props.mobileLike) {
+      if (this.props.children.props.location.action === 'POP') {
+        return this._sceneConfig.atActive;
+      }
+    }
+    return this._sceneConfig.atEnter;
+  };
 
-  willLeave() {
-    return ensureSpring(this.props.atLeave);
-  },
+  willLeave = () => {
+    if (this._needResetLeave) {
+      this._needResetLeave = false;
+      return null;
+      // Hack to clear uncleared transitions
+    }
+    return this._sceneConfig.atLeave;
+  };
 
-  renderRoute(config) {
+  renderRoute = (config) => {
+    // create or clone
     const props = {
-      style: this.props.mapStyles(config.style),
+      style: this._sceneConfig.mapStyles ? this._sceneConfig.mapStyles(config.style) : config.style,
       key: config.key
     };
-
+    console.log('renderrout', config.key);
     return this.props.component
       ? createElement(this.props.component, props, config.data)
       : cloneElement(config.data, props);
-  },
+  }
 
-  renderRoutes(interpolatedStyles) {
+  renderRoutes = (interpolatedStyles) => {
+    // The children in the route stack that is getting replaced
     return (
       <div className={this.props.className} style={this.props.style}>
         {interpolatedStyles.map(this.renderRoute)}
       </div>
     );
-  },
+  }
 
   render() {
     return (
@@ -97,6 +122,6 @@ const RouteTransition = React.createClass({
       </TransitionMotion>
     );
   }
-});
+}
 
 export default RouteTransition;

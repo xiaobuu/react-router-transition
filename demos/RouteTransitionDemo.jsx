@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import presets from '../src/presets';
 
 import { RouteTransition } from '../src/index';
 
@@ -13,15 +14,17 @@ const RouteTransitionDemo = (props) => (
         </Link>
       );
     })}
-    <RouteTransition
-      component={false}
-      className="transition-wrapper"
-      pathname={props.location.pathname}
-      {...props.preset}
-    >
-      {props.children}
-    </RouteTransition>
+    {/*
+
+       <RouteTransition
+         // component={false}
+       >
+         {props.children}
+       </RouteTransition>
+
+    */}
+    {props.children}
   </div>
 );
-
+RouteTransitionDemo.sceneConfig = presets.slideRight;
 export default RouteTransitionDemo;
