@@ -63,7 +63,6 @@ class RouteTransition extends Component {
     if (!this.props.children) {
       return [];
     }
-    console.log('key', this.props.children.props.location.pathname);
     return [{
       key: this.props.children.props.location.pathname, // props is injected by react-router
       data: this.props.children,
@@ -86,7 +85,7 @@ class RouteTransition extends Component {
       return null;
       // Hack to clear uncleared transitions
     }
-    return this._sceneConfig.atLeave;
+    return ensureSpring(this._sceneConfig.atLeave);
   };
 
   renderRoute = (config) => {
@@ -95,7 +94,6 @@ class RouteTransition extends Component {
       style: this._sceneConfig.mapStyles ? this._sceneConfig.mapStyles(config.style) : config.style,
       key: config.key
     };
-    console.log('renderrout', config.key);
     return this.props.component
       ? createElement(this.props.component, props, config.data)
       : cloneElement(config.data, props);
