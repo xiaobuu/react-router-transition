@@ -31,7 +31,9 @@ const App = React.createClass({
             </Link>
           );
         })}
-        <RouteTransition>
+        <RouteTransition
+          defaultConfig={presets.slideRight}
+        >
           {this.props.children}
         </RouteTransition>
       </div>
@@ -54,8 +56,8 @@ const Demo = () => (
       <Route path="slideLeft" component={SlideLeftLorem}/>
       <Route path="slideRight" component={SlideRightDemo}>
         <IndexRoute component={SlideRighLorem} />
-        <Route path="demo-1" component={SlideRighLorem} />
-        <Route path="demo-2" component={SlideRighLorem} />
+        <Route path="demo-1" component={Lorem} />
+        <Route path="demo-2" component={Lorem} />
         <Route path="demo-3" component={SlideRighLorem} />
       </Route>
     </Route>

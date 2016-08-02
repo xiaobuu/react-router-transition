@@ -20,25 +20,27 @@ class RouteTransition extends Component {
     // atLeave: PropTypes.object.isRequired,
     // mapStyles: PropTypes.func,
     runOnMount: PropTypes.bool,
-    mobileLike: PropTypes.bool,
-    style: PropTypes.object
+    // mobileLike: PropTypes.bool,
+    style: PropTypes.object,
+    defaultConfig: PropTypes.object,
   };
 
   static defaultProps = {
     component: 'div',
     runOnMount: false,
-    mobileLike: false,
+    // mobileLike: false,
+    defaultConfig:  {},
   };
 
   _sceneConfig = {};
 
   componentWillMount() {
-    this._sceneConfig = extractSceneConfig(this);
+    this._sceneConfig = extractSceneConfig(this) || this.props.defaultConfig;
   }
 
   componentWillReceiveProps(nextProps) {
     setTimeout(() => this._needResetLeave = true, 300);
-    this._sceneConfig = extractSceneConfig(nextProps.children);
+    this._sceneConfig = extractSceneConfig(nextProps.children) || nextProps.defaultConfig;
   }
 
   getDefaultStyles = () => {
@@ -71,11 +73,13 @@ class RouteTransition extends Component {
   }
 
   willEnter = () => {
+    /*
     if (this.props.mobileLike) {
       if (this.props.children.props.location.action === 'POP') {
         return this._sceneConfig.atActive;
       }
     }
+    */
     return this._sceneConfig.atEnter;
   };
 

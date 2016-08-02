@@ -1,6 +1,6 @@
 # React Router Transition
 
-A simple component for easily enable transitions for components. Built for `react-router`, powered by `react-motion`. [Some demos](http://maisano.github.io/react-router-transition/demos/#/fade)
+A simple component for easily enable transitions for components. Built for `react-router`, powered by `react-motion`. [Some demos(from original repo)](http://maisano.github.io/react-router-transition/demos/#/fade)
 
 You'll define transitions in your component which is the main difference from the original version.
 
@@ -44,13 +44,13 @@ AComponent.sceneConfig = {
 
 ### Installation
 
+Install the modified version
+
+`npm install --save react-router-transitioner --save`
+
 If you want to install the original version
 
 `npm install --save react-router-transition`
-
-Install the modified version
-
-`npm i https://github.com/xiaobuu/react-router-trasition --save`
 
 ### Usage
 
@@ -65,15 +65,13 @@ If you want to add transition to a component in the route tree,
 - `atActive`: interpolatable style values for a route that has mounted (required)
 - `mapStyles`: an optional function to transform styles that aren't 1:1 (e.g. animating `translateX` or other values of `transform`)
 - `runOnMount`: a boolean to signal whether or not to run the transition on initial `RouteTransition` mount (Not sure if it's working now)
-- `mobileLike`: Default `false`. If set to true, when doing a pop, the top component revealed will not get animated. It's feels more natural for app interface.
+- `defaultConfig`: set default scene configuration for all child routes, default is `{}`
 
 and supports a couple optional props:
 - `className`: applies to the wrapper component
 - `style`: applies to the wrapper component
 
 If you want more granular control over the transition, pass in `spring` objects accordingly. For more information on springs, check out [`react-motion`'s documentation](https://github.com/chenglou/react-motion#--spring-val-number-config-springhelperconfig--opaqueconfig).
-
-Be sure to checkout the demos!
 
 
 ### Nesting Transitions
