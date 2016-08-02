@@ -6,16 +6,17 @@
  */
 
 function fetchConfig (element) {
-  /*
   if (element.props && element.props.sceneConfig) {
     return element.props.sceneConfig;
   } else if (element.type && element.type.sceneConfig) {
     return element.type.sceneConfig;
   }
-  */
+
+  /*
   if (element.props.route && element.props.route.component.sceneConfig) {
     return element.props.route.component.sceneConfig;
   }
+  */
 }
 export default function (element) {
   let lastConfig;
