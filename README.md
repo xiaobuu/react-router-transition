@@ -61,6 +61,7 @@ If you want to add transition to a component in the route tree,
  `sceneConfig` requires a few props:
 - `component`: the element type (`'div'`, `'span'`, etc.) to wrap transitioning routes. use `false` to transition routes themselves (this will require consuming a `style` prop in your route components).Default is `div`.
 - `atEnter`: an object of interpolatable style values for a route that is mounting (required)
+- `atBack`: an object of interpolatable style values for a route that is mounting by poping, can be useful to create mobile feeling transitions (optional)
 - `atLeave`: an object of interpolatable style values for a route that is unmounting (required)
 - `atActive`: interpolatable style values for a route that has mounted (required)
 - `mapStyles`: an optional function to transform styles that aren't 1:1 (e.g. animating `translateX` or other values of `transform`)
