@@ -23,9 +23,9 @@ export default function (element) {
   // react-router node should have only one child
 
   while (element.props && element.props.children) {
-    lastConfig = fetchConfig;
+    lastConfig = fetchConfig(element);
     element = element.props.children;
   }
   const thisConfig = fetchConfig(element);
-  return thisConfig || lastConfig || {};
+  return thisConfig || lastConfig;
 }

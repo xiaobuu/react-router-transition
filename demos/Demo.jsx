@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router';
 
-import {FadeLorem, PopLorem, SlideLeftLorem, Lorem, SlideRighLorem} from './Lorem';
+import { FadeLorem, PopLorem, SlideLeftLorem, Lorem, SlideRighLorem } from './Lorem';
 import RouteTransitionDemo from './RouteTransitionDemo';
 import { RouteTransition } from '../src/index';
 

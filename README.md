@@ -5,7 +5,7 @@ A simple component for easily enable transitions for components. Built for `reac
 You'll define transitions in your component which is the main difference from the original version.
 
 ```jsx
-import { RouteTransition } from 'react-router-transition';
+import { RouteTransition } from 'react-router-transitioner';
 
 // in your root app component:
 <div>
@@ -46,7 +46,7 @@ AComponent.sceneConfig = {
 
 Install the modified version
 
-`npm install --save react-router-transitioner --save`
+`npm install --save react-router-transitioner`
 
 If you want to install the original version
 

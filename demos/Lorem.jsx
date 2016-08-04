@@ -37,4 +37,4 @@ export const FadeLorem = LoremCreator(presets.fade);
 export const PopLorem = LoremCreator(presets.pop);
 export const SlideLeftLorem = LoremCreator(presets.slideLeft);
 export const SlideRighLorem = LoremCreator(presets.slideRight);
-export const Lorem = LoremCreator({});
+export const Lorem = LoremCreator(null); // don't override default
