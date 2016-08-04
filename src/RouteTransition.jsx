@@ -73,13 +73,12 @@ class RouteTransition extends Component {
   }
 
   willEnter = () => {
-    /*
-    if (this.props.mobileLike) {
-      if (this.props.children.props.location.action === 'POP') {
-        return this._sceneConfig.atActive;
-      }
+    if (this.props.children.props.location.action === 'POP'
+      && this._sceneConfig.atBack
+    ) {
+      return this._sceneConfig.atBack;
     }
-    */
+
     return this._sceneConfig.atEnter;
   };
 
