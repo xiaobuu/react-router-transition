@@ -1,6 +1,6 @@
 # React Router Transition
 
-A simple component for easily enable transitions for components. Built for `react-router`, powered by `react-motion`. [Some demos(from original repo)](http://maisano.github.io/react-router-transition/demos/#/fade)
+A simple component for easily enable transitions for components. Built for `react-router`, powered by `react-motion`. [Some demos](http://xiaobuu.github.io/react-router-transition/demos/)
 
 You'll define transitions in your component which is the main difference from the original version.
 
